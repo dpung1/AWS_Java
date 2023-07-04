@@ -11,11 +11,11 @@ public class Phone {
 	}
 	
 	public void send(String number, String message) {
-		System.out.println(number + "에게" + message + "내용 전송");
+		System.out.println(number + "에게 " + message + "내용 전송");
 	}
 	
 	public void send(String message, int count) {
-		System.out.println(message + "내용" + count + "번 전송");
+		System.out.println(message + "내용 " + count + "번 전송");
 	}
 
 

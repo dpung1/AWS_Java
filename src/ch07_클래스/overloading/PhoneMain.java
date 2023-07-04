@@ -5,7 +5,10 @@ public class PhoneMain {
 		
 		Phone phone = new Phone();
 		
-		phone.send("안녕");
+//		phone.send("안녕");
+//		phone.send("나", "안녕");
+//		phone.send("안녕", 5);
+		phone.send();
 		
 	}
 }

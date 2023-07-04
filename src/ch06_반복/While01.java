@@ -38,8 +38,10 @@ public class While01 {
 					
 					if(selectedMeun == 'c') {
 						flag2 = false;
-					} 
-					
+					} else if (selectedMeun == 'd') {
+						flag2 = false;
+						flag = false;
+					}
 				}
 			}
 		} 

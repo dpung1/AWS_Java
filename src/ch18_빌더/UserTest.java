@@ -15,9 +15,8 @@ public class UserTest {
 	
 	public static class UserTestTest {
 		
-		public  void testTest() {
+		public void testTest() {
 			System.out.println("테스트테스트 메소드 호출");
 		}
-		
 	}
 }
