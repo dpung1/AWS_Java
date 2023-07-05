@@ -117,7 +117,8 @@ public class TestFunctionMain {
 		numbers.removeIf(num -> num % 2 == 0);
 		System.out.println(numbers);
 		
-		// forEach 예시 (매개변수를 받아 하나씩 반복하여 출력)
-		numbers.forEach(num -> System.out.println("출력 : " + num));
+		// forEach 예시 (매개변수를 받아(대입) 하나씩 반복하여 출력)
+		numbers.forEach(num -> System.out.println("출력 : " + num + num));
+		
 	}
 }
