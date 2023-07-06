@@ -21,6 +21,7 @@ public class GUIMain1 extends JFrame {
 	private JPanel contentPane;
 	private JTextField usernametextField;
 	private JPasswordField passwordtextField;
+	protected GUIMain2 guiMain2;
 
 	/**
 	 * Launch the application.
@@ -61,9 +62,13 @@ public class GUIMain1 extends JFrame {
 				
 				JOptionPane.showMessageDialog(contentPane, "환영합니다.", "로그인 성공", JOptionPane.PLAIN_MESSAGE);
 				
-				contentPane.removeAll();
-				setupCardLayout();
+				guiMain2 = new GUIMain2();
+				guiMain2.setVisible(true);
+				
+				dispose();
+				
 			}
+				
 		});
 		btnNewButton.setBounds(131, 149, 166, 34);
 		contentPane.add(btnNewButton);
