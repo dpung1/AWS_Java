@@ -1,21 +1,17 @@
-package test;
+package test1;
 
-class Calculator {
+class Calculator { // 클래스 2개 생성시 public 접근지정자 추가
 	
-	public int num1;
-	public int num2;
-	
-	public int add(int num1, int num2) {
+	int add(int num1, int num2) {
 		return num1 + num2;
 	}
 	
-	public int sub(int num1, int num2) {
+	int sub(int num1, int num2) {
 		return num1 - num2;
 	}
-	
 }
 
-public class Main1 {
+public class Main01 {
 	public static void main(String[] args) {
 		
 		Calculator calculator = new Calculator();
@@ -24,5 +20,3 @@ public class Main1 {
 		System.out.println(calculator.sub(200, 100));
 	}
 }
-
-

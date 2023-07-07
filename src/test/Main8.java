@@ -8,6 +8,14 @@ class Order {
 	private int price;
 	private int stock;
 	
+	private Order(int orderId, String productName, String consumerName, int price, int stock) {
+		this.orderId = orderId;
+		this.productName = productName;
+		this.consumerName = consumerName;
+		this.price = price;
+		this.stock = stock;
+	}
+	
 	public static OrderBuilder builder() {
 		return new OrderBuilder();
 	}
@@ -69,6 +77,7 @@ public class Main8 {
 				.price(1450000)
 				.stock(2)
 				.build();
+		
 		order.showOrderInfo();
 	}
 }
