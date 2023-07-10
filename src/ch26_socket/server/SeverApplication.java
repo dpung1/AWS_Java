@@ -58,7 +58,13 @@ public class SeverApplication {
 						serverSocket = new ServerSocket(port); // 누군가 포트사용으로 try(예외처리) 사용
 						
 						while(!Thread.interrupted()) {
-							Socket socket = serverSocket.accept();
+							Socket socket = serverSocket.accept(); // 클라이언트에 연결되는 Socket
+							ConnectedSocket connectedSocket = new ConnectedSocket(socket);
+							connectedSocket.start(); // 매번 실행시 ConnectedSocket 생성 후 실행
+							
+							ConnnectedClientController.getinstance()
+							.getConnectedSockets().add(connectedSocket);
+							
 							System.out.println("접속!!");
 							System.out.println(socket.getInetAddress().getHostAddress());
 						}
