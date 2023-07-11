@@ -10,7 +10,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Objects;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,21 +20,45 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import ch26_socket.simpleGUI.client.dto.RequestBodyDto;
+import ch26_socket.simpleGUI.client.dto.SendMessage;
+import lombok.Getter;
+
+@Getter
 public class SimpleGUIClient extends JFrame {
+	
+	private static SimpleGUIClient instance;
+	public static SimpleGUIClient getInstance() {
+		if(instance == null) {
+			instance = new SimpleGUIClient();
+		}
+		return instance;
+	}
+	
 	
 	private String username; // 채팅하는 사람 추가
 	private Socket socket;
 	
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextArea textArea = new JTextArea();
+	private JTextArea textArea;
+	
+	private JScrollPane userListScrollPane;
+	private DefaultListModel<String> userListModel;
+	private JList userList;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SimpleGUIClient frame = new SimpleGUIClient();
+					SimpleGUIClient frame = SimpleGUIClient.getInstance();
 					frame.setVisible(true);
+					
+					ClientReceiver clientReceiver = new ClientReceiver();
+					clientReceiver.start();
+					
+					RequestBodyDto<String> requestBodyDto = new RequestBodyDto<String>("join", frame.username);
+					ClientSender.getInstance().send(requestBodyDto);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,17 +80,7 @@ public class SimpleGUIClient extends JFrame {
 		
 		try {
 			socket = new Socket("127.0.0.1", 8000);
-			Thread inputThread = new Thread(() -> {
-				try {
-					while(true) {
-						BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-						textArea.append(bufferedReader.readLine() + "\n");						
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			});
-			inputThread.start();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
@@ -80,10 +96,10 @@ public class SimpleGUIClient extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 10, 410, 202);
+		scrollPane.setBounds(12, 10, 277, 202);
 		contentPane.add(scrollPane);
 		
-		
+		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 		
 		textField = new JTextField();
@@ -91,17 +107,29 @@ public class SimpleGUIClient extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					try {
-						PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-						printWriter.println(username + " : " + textField.getText());
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					
+					SendMessage sendMessage = SendMessage.builder()
+							.fromUsername(username)
+							.messageBody(textField.getText())
+							.build();
+					
+					RequestBodyDto<SendMessage> requestBodyDto = 
+							new RequestBodyDto<>("sendMessage", sendMessage);
+					
+					ClientSender.getInstance().send(requestBodyDto);
+					textField.setText("");
 				}
 			}
 		});
 		textField.setBounds(12, 222, 410, 29);
 		contentPane.add(textField);
 		
+		userListScrollPane = new JScrollPane();
+		userListScrollPane.setBounds(301, 10, 121, 202);
+		contentPane.add(userListScrollPane);
+		
+		userListModel = new DefaultListModel<>();
+		userList = new JList(userListModel);
+		userListScrollPane.setViewportView(userList);
 	}
 }

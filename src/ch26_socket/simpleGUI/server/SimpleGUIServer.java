@@ -17,6 +17,7 @@ public class SimpleGUIServer {
 			
 			while(true) {
 				Socket socket = serverSocket.accept();
+				System.out.println("접속");
 				ConnectedSocket connectedSocket = new ConnectedSocket(socket);
 				connectedSocketList.add(connectedSocket);
 				connectedSocket.start();
