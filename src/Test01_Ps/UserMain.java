@@ -1,4 +1,4 @@
-package test1;
+package Test01_Ps;
 
 class User {
 	
@@ -13,10 +13,6 @@ class User {
 		this.name = name;
 		this.email = email;
 
-	@Override		
-	public String toString() {
-		return "[사용자 정보]" + \n
-		}
 	}
 }
 

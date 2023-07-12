@@ -1,4 +1,4 @@
-package test1;
+package Test01;
 
 import java.util.Arrays;
 
@@ -42,13 +42,10 @@ public class Casting {
 		for(int i = 0; i < programs.length; i++) {
 			programs[i].develop();
 			
-			if(programs[i].getClass() == Java.class) {
-				Java java = (Java)programs[i];
-				java.garbageCollection();
-			
-			} else if(programs[i].getClass() == C.class) {
-				C c = (C)programs[i];
-				c.defineStructure();
+			if(programs[i] instanceof Java) {
+				((Java) programs[i]).garbageCollection();
+			} else if(programs[i] instanceof C) {
+				((C) programs[i]).defineStructure();
 			}
 			
 		}

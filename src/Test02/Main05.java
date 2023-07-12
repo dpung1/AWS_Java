@@ -1,4 +1,4 @@
-package Test2;
+package Test02;
 
 class Car {
 	private String company;

@@ -1,4 +1,4 @@
-package test;
+package Test01_Ps;
 
 class Factory {
 	

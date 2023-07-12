@@ -1,4 +1,4 @@
-package test1;
+package Test01_Ps;
 
 class Calculator { // 클래스 2개 생성시 public 접근지정자 추가
 	

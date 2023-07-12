@@ -1,4 +1,4 @@
-package test1;
+package Test01;
 
 class Factory {
 	
