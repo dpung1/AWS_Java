@@ -27,7 +27,7 @@ class Laptop implements Wifi {
 		System.out.println("절전 모드를 활성화합니다.");
 	}
 }
-
+// 주석
 public class Casting {
 	public static void main(String[] args) {
 		List<Wifi> devices = new ArrayList<>();
